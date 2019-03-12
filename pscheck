@@ -1,17 +1,20 @@
 #!/bin/bash
-## check on the process age and kill if running for too long
+## checks on a process age and kill if running for too long
 PROCESS="sleep"
-LOGAN="10800"
+LOGAN="10800" # from 'Logan's Run' :D
 if pgrep "$PROCESS" ; then
   PID=$(pgrep "$PROCESS")
+  #this is the age of the proc in seconds 
   AGE=$(ps -o etimes= -p "$PID")
-  #Show results:
+  #Show results for testing:
   echo PID:"$PID", AGE:"$AGE"
-  if [[ "$AGE" -gt "$LOGAN" ]]
-    then
+  if [[ "$AGE" -gt "$LOGAN" ]] ; then
     kill "$PID"
-  else
-    exit 0
+    logger pscheck.sh Killed "$PROCESS" - PID:"$PID", AGE:"$AGE"
+    echo -e "pscheck.sh Killed "$PROCESS" - PID:"$PID", AGE:"$AGE"" | mail -s '"$PROCESS" killed' wuxmedia@gmail.com
+    else 
+    #exit cleanly
+   exit 0
   fi
 else
   exit 0
