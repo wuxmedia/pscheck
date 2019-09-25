@@ -11,7 +11,7 @@ if pgrep "$PROCESS" ; then
   if [[ "$AGE" -gt "$LOGAN" ]] ; then
     kill "$PID"
     logger pscheck.sh Killed "$PROCESS" - PID:"$PID", AGE:"$AGE"
-    echo -e "pscheck.sh Killed "$PROCESS" - PID:"$PID", AGE:"$AGE"" | mail -s '"$PROCESS" killed' wuxmedia@gmail.com
+    echo -e "pscheck.sh Killed "$PROCESS" - PID:"$PID", AGE:"$AGE"" | mail -s '"$PROCESS" killed' yourname@email.com
     else 
     #exit cleanly
    exit 0
